@@ -28,26 +28,49 @@ new Vue({
             return;
         }
 
-            //odzemame poeni od player
-         this.playerHealth -= this.calculateDamage(5,10);
-            //ako monster pobedil izleguvame od f-jata(bidejci ova e posleden kod nema potreba od return)
-         this.checkWin();
+
+            this.monsterAttacks();
 
         },
 
         specialAttack: function() {
 
+            //odzemame poeni od monster
+            this.monsterHealth -= this.calculateDamage(5,15);
+            // ako vracame true(ako player pobedil izleguvame od f-jata)
+            if(this.checkWin()){
+                return;
+            }
+
+
+            this.monsterAttacks();
 
         },
 
         heal:function() {
+            //prasuvame dali odkoga ke klikneme playerHealth e pomal ili ednakov na 90(ako e taka dodavame 10 poeni
+            if(this.playerHealth <= 90){
+                this.playerHealth += 10;
+                //prasuvame dali odkoga ke klikneme playerHealth e pogolem od 90(ako e taka stavame 100)
+            }else{
+                this.playerHealth = 100;
+            }
 
+            this.monsterAttacks();
 
         },
 
         giveUp: function(){
 
 
+        },
+
+        monsterAttacks: function() {
+
+            //odzemame poeni od player
+            this.playerHealth -= this.calculateDamage(5,10);
+            //ako monster pobedil izleguvame od f-jata(bidejci ova e posleden kod nema potreba od return)
+            this.checkWin();
         },
 
         //presmetuvame maximalen broj
