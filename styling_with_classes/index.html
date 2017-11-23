@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Title</title>
+	<link rel="stylesheet" href="style.css">
+	<script src="../vue.js"></script>
+</head>
+<body>
+
+<div id="app">
+
+   
+    <!--koga e attachRed true ja bindame klasata red i obratno-->
+    <!--so klik ja promenuvame promenlivata attachRed  vo data od false vo true i obratno-->
+	<div class="demo" @click ="attachRed= !attachRed"   :class="divClasses"> </div>
+
+    <!--samo koga attachRed ima vrednost true klasata red ja imame vo klasite-->
+	<div class="demo" :class="{red: true}"></div>
+	<div class="demo" :class="[color,{red: attachRed}]"></div>
+
+    <hr>
+    <input type="text" v-model="color">
+</div>
+
+
+	<script>
+				new Vue({
+					el: '#app',
+
+
+					data: {
+                        attachRed: false,//posle prviot klik attachRed e true,posle vtoriot e false ,......
+
+                        color: ''
+                    },
+
+                    computed: {
+
+					    divClasses: function(){
+                             //vo prviot slucaj pred klikot red e true blue e false,posle klikot obratno
+					        return {red: !this.attachRed,blue: this.attachRed}
+                        }
+                    }
+
+
+				})
+	</script>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Title</title>
+	<script src="../vue.js"></script>
+</head>
+<body>
+
+<div id="app">
+	<button  v-on:click="counter++"> Increase </button>
+    <button  v-on:click="counter--"> Decrease </button>
+    <button  v-on:click="secondCounter++"> Increase Second </button>
+	<p>{{counter}} | {{secondCounter}} </p>
+	<p>{{result()}} | {{output}}</p>
+</div>
+
+
+	<script>
+				new Vue({
+					el: '#app',
+					data: {
+						counter:0,
+                        secondCounter:0
+
+                    },
+                     //computed property
+                    //so computed output ne go interesira secondCounter tuku samo  counter i toa sto go vracame go tretirame kako property
+                    computed: {
+                        output: function() {
+                            console.log('computed')
+                            return this.counter>5? "Greater than 5":"Less than 5";
+                        }
+                    },watch: {
+
+					    counter: function(value) {
+                            const vm = this;
+                            setTimeout(function(){
+                                vm.counter = 0;
+                            },2000)
+                        }
+                    },
+                    methods: {
+                        //so computed output ne go interesira secondCounter tuku samo  counter
+					    result: function() {
+                            console.log('method')
+					       return this.counter>5? "Greater than 5":"Less than 5";
+                        }
+                    }
+				})
+	</script>

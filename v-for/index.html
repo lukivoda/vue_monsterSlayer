@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Title</title>
+	<script src="../vue.js"></script>
+
+</head><link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<body>
+<div class="container">
+<div id="app">
+
+	<ul>
+		<li :style="myStyle" v-for="(ingredient,i) in ingredients" :key="ingredient">{{i+1}}.{{ingredient}}</li>
+	</ul>
+
+	<template v-for="(ingredient,i) in ingredients">
+
+		Index: <span>{{i}}</span> <span>Ingredient:{{ingredient}}</span><br>
+
+	</template>
+	<hr>
+
+	<ul>
+		<li :style="myStyle" v-for="person in persons">
+			<div v-for="(value,key,index) in person" >{{key}}:{{value}}({{index}}) </div><br>
+
+
+		</li>
+	</ul>
+
+	<hr>
+
+	<span v-for="n in 10">{{n}}</span>
+
+	<hr>
+	<button class="btn btn-info btn-xs" @click="ingredients.push('spices')">Add</button>
+
+
+</div>
+</div>
+
+	<script>
+				new Vue({
+					el: '#app',
+					data: {
+
+					    myStyle:{
+
+					      "list-style": 'none'
+						},
+
+					    ingredients : ['meat','fruit','cookies'],
+
+						persons: [
+
+							{
+							    name: "Stevan", age: 39,color: 'blue'
+							},
+
+                            {
+                                name: "Steffi", age:'undefined',color: 'pink'
+                            },
+
+                            {
+                                name: "Lucy", age:3,color: 'purple'
+                            }
+
+						]
+
+				}
+				})
+	</script>
