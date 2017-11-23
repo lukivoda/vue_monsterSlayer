@@ -9,6 +9,8 @@ new Vue({
 
         monsterHealth: 100,
 
+        turns: []
+
     },
 
     methods: {
@@ -21,8 +23,17 @@ new Vue({
         },
 
         attack: function(){
+
+      let damage =  this.calculateDamage(3,10);
      //odzemame poeni od monster
-         this.monsterHealth -= this.calculateDamage(3,10);
+         this.monsterHealth -= damage;
+
+         //dodavame objekt vo turns nizata,kade so ternaren operator vo html pri loop stavame klasa sprema toa dali isPlayer e true ili ne
+         this.turns.unshift({
+                 isPlayer: true,
+                 message: "Player hits " + damage
+             }
+         );
         // ako vracame true(ako player pobedil izleguvame od f-jata)
         if(this.checkWin()){
             return;
@@ -35,8 +46,16 @@ new Vue({
 
         specialAttack: function() {
 
+            let damage = this.calculateDamage(5,15);
             //odzemame poeni od monster
-            this.monsterHealth -= this.calculateDamage(5,15);
+            this.monsterHealth -= damage;
+
+            //dodavame objekt vo turns nizata,kade so ternaren operator vo html pri loop stavame klasa sprema toa dali isPlayer e true ili ne
+            this.turns.unshift({
+                isPlayer: true,
+                message: "Player hits hard " + damage
+            });
+
             // ako vracame true(ako player pobedil izleguvame od f-jata)
             if(this.checkWin()){
                 return;
@@ -61,15 +80,24 @@ new Vue({
         },
 
         giveUp: function(){
-
+           this.gameIsRunning = false;
 
         },
 
         monsterAttacks: function() {
 
+            let damage = this.calculateDamage(5,10);
             //odzemame poeni od player
-            this.playerHealth -= this.calculateDamage(5,10);
+            this.playerHealth -= damage;
             //ako monster pobedil izleguvame od f-jata(bidejci ova e posleden kod nema potreba od return)
+
+            //dodavame objekt vo turns nizata,kade so ternaren operator vo html pri loop stavame klasa sprema toa dali isPlayer e true ili ne
+            this.turns.unshift({
+                    isPlayer: false,
+                    message: "Monster hits " + damage
+                }
+            );
+
             this.checkWin();
         },
 
